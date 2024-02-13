@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM", "ORM\ORM.csproj", "{374569B4-B7CF-4803-9721-D0CE690AED13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM.Test", "ORM.Test\ORM.Test.csproj", "{506D8ECF-BAEA-4E9F-A1EA-C463CAC40584}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{374569B4-B7CF-4803-9721-D0CE690AED13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{374569B4-B7CF-4803-9721-D0CE690AED13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{374569B4-B7CF-4803-9721-D0CE690AED13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{506D8ECF-BAEA-4E9F-A1EA-C463CAC40584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{506D8ECF-BAEA-4E9F-A1EA-C463CAC40584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{506D8ECF-BAEA-4E9F-A1EA-C463CAC40584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{506D8ECF-BAEA-4E9F-A1EA-C463CAC40584}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,5 +49,37 @@ namespace ORM
                 db.SaveChanges();
             }
         }
+        public List<Order> GetOrdersBy(string orderStatus, DateTime orderDate) 
+        {
+            List<Order> orders = new List<Order>(); 
+            using (var db = new ORMEntities())
+            {
+                var orderList = db.GetOrders(orderStatus, orderDate);
+                foreach (var order in orderList) 
+                {
+                    Order ord = new Order 
+                    {
+                        OrderId = order.OrderId, 
+                        OrderStatus = order.OrderStatus,
+                        CreatedDate = order.CreatedDate,
+                        UpdatedDate = order.UpdatedDate,
+                    };
+                    orders.Add(ord);
+                }    
+            }
+            return orders;
+        }
+        public void DeleteOrders()
+        {
+            using (var db = new ORMEntities())
+            {
+                var rows = db.Orders;
+                foreach (var row in rows)
+                {
+                    db.Orders.Remove(row);
+                }
+                db.SaveChanges();
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ORMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ORMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -38,6 +38,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+        </Function>
         <EntityContainer Name="ORMModelStoreContainer">
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
@@ -46,8 +50,7 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ORMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -93,7 +96,18 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <FunctionImport Name="GetOrders" ReturnType="Collection(ORMModel.GetOrders_Result)">
+            <Parameter Name="OrderStatus" Mode="In" Type="String" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetOrders_Result">
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="String" Name="OrderStatus" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" />
+          <Property Type="Int32" Name="ProductId" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -123,6 +137,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetOrders" FunctionName="ORMModel.Store.GetOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ORMModel.GetOrders_Result">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
